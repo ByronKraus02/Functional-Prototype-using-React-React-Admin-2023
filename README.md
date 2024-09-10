@@ -1,62 +1,65 @@
 # Development and Implementation of a Student Accommodation Management System
+### Essay: Developing the Student Accommodation Management System for StelStay Properties
 
 #### Introduction
 
-In 2023, as part of our SI/ISM 354 course, my team and I undertook a significant group project involving the design and development of an information system for StelStay Properties. StelStay, a fictional entity, required a comprehensive solution to manage student accommodation in the picturesque town of Stellenbosch. This project challenged us to create a functional and novel system using JavaScript, React, and React-admin, with additional requirements to model data, implement features, and present our solution effectively.
-
-#### Project Overview
-
-**Objective and Scope**
-
-The primary objective of the project was to design and develop an information system that could handle various aspects of managing student accommodation. The system needed to support the application process for leases, manage buildings and apartments, and include at least one additional module from a given list of functionalities. The project scope was carefully defined to focus on creating a functional prototype rather than a fully-fledged system, acknowledging the tight timeline and limited resources.
-
-**Group Formation and Methodology**
-
-Our group consisted of four students, each bringing unique skills to the project. We selected an Agile software development methodology to ensure flexibility and iterative progress. This approach allowed us to adapt to changes and refine our system based on ongoing feedback and testing. We utilized Scrum for organizing our tasks, with regular sprints and stand-up meetings to track our progress and address any challenges.
+In our SI/ISM 354 course, my team and I developed a functional information system to manage student accommodation for StelStay Properties, a fictional company tasked with building residential communities for students in Stellenbosch. The objective was to create a system that would handle student lease applications and support administrative functionalities, including managing buildings, apartments, and room assignments. This explains how we approached the project, utilizing both system design techniques and the final outcome, referencing the UML activity diagram and the Entity-Relationship Diagram (ERD) created for the project.
 
 #### System Design and Development
 
-**Data Modeling**
+**Project Scope and Requirements**
 
-To begin, we designed a UML class diagram to model the data requirements of our system. This diagram helped us visualize the relationships between different entities, such as students, leases, buildings, and apartments. We also created an Entity-Relationship Diagram (ERD) to further define the data structure and ensure consistency in our database design.
+The goal of our system was to streamline the lease application process for students while providing administrators with tools to manage available properties, approve or deny applications, and assign students to rooms. The system also needed to handle information related to bill payers, since students often had someone else paying for their accommodation. We designed the system using React and React-admin for the front end, with a backend of our choice, which facilitated communication between the database and the user interface.
 
-**System Features and Implementation**
+**Entity-Relationship Diagram (ERD)**
 
-1. **Student Application Management**
+To model the data structure, we created an ERD (Entity-Relationship Diagram) that defines the relationships between various entities within the system. The primary entities include **Students**, **Bill Payers**, **Properties**, **Administrators**, and **Lease Applications**. This diagram provides a clear picture of how each entity interacts with the system and what key attributes are associated with them.
 
-   The core functionality of our system was to manage student applications for leases. Students could submit their personal information, including name, ID number, contact details, and program of study. The application process did not involve assigning applications to specific apartments initially. Instead, administrators could review applications, add buildings and apartments to the system, and then approve or reject applications. Approved students were assigned to available rooms, streamlining the lease management process.
+- The **Student** entity stores student details such as name, email, phone number, course, and year of study.
+- The **Lease Application** entity captures the lease request made by the student, including the year of the lease and information about the property.
+- The **Property** entity details each property’s address, unit number, and room number, while the **Room** entity defines specific apartment types and the rooms available.
+- The **Bill Payer** entity stores billing information such as account number, full name, and address of the person responsible for the student’s lease.
+- The **Administrator** entity defines system admins who manage the process by approving or rejecting lease applications.
 
-2. **Additional Modules**
+The relationships depicted in the ERD were vital in ensuring that the database structure was well-organized, with each entity properly linked. For example, the **Lease Application** links the student to the bill payer, showing that the lease is managed by an administrator and associated with a specific property.
 
-   We implemented the following additional module to enhance our system:
-   - **Communication with Residents**: This feature allowed administrators to send messages and notifications to residents, keeping them informed about important updates and events.
+**Activity Diagram for Lease Processing**
+
+We created an activity diagram to represent the lease application workflow. This UML diagram outlines the interactions between users (students) and system administrators during the application process.
+
+1. **Making a Lease Application**: A student submits a lease application, which is logged by the system. The request is then reviewed by an administrator.
    
-   We also considered the feasibility of other modules such as event management and parking bay management but chose to focus on delivering a robust core system within the project timeline.
+2. **Application Processing**: Once the lease request is submitted, administrators check for the availability of rooms. If rooms are available, they proceed with further actions; otherwise, the application is denied.
+   
+3. **Approval or Denial**: If the room is available, the administrator assigns it to the student. The status of the application is updated, and the student is notified whether their lease has been approved or denied.
+   
+4. **Lease Acceptance**: If approved, the student receives the lease confirmation and room assignment. If denied, they receive a notification, allowing them to explore other options.
 
-**Technologies Used**
+This diagram ensured that our system followed a logical and efficient flow for both students and administrators, minimizing potential bottlenecks during the lease approval process.
 
-We built our prototype using JavaScript with the React and React-admin frameworks for the front-end. React provided a dynamic and responsive user interface, while React-admin facilitated the creation of an administrative dashboard for managing applications and system data. For the backend, we selected Node.js and Express to handle server-side operations and database interactions.
+#### Key Features Implemented
 
-#### Documentation and Presentation
+1. **Student Application Management**:
+   The core functionality of our system was to allow students to apply for accommodation. The application form captured essential details like the student’s name, ID, program, year of study, and the lease year. These details were then passed to administrators for processing.
 
-**Design Documentation**
+2. **Administrative Tools**:
+   Administrators could view pending applications, check the availability of rooms, and assign students to specific rooms. This system allowed them to efficiently manage room occupancy and keep track of assigned leases. The status of the application—whether approved or denied—was dynamically updated.
 
-Our final submission included a detailed PDF document containing our UML class diagrams, ERD, and other design documentation. This document provided a comprehensive overview of our system architecture and data modeling, ensuring clarity and coherence in our design approach.
+3. **Bill Payer Management**:
+   Since many students have their accommodation paid for by a third party (the bill payer), the system incorporated a way to capture the bill payer’s information, including their name, contact details, and bank information. This feature ensured that invoices and communication could be correctly routed to the responsible party.
 
-**Project Presentation**
+#### Testing and Presentation
 
-We prepared for our presentation by including demonstration data to showcase the functionality of our system effectively. During the presentation sessions, we demonstrated how students could apply for leases, how administrators could manage applications, and how the communication module operated. We received feedback and made slight adjustments to our application before the final submission.
+During the testing phase, we focused on ensuring that the system handled both valid and invalid data correctly. For example, when a student applied for accommodation in a fully booked apartment, the system would automatically deny the request and notify the student. Conversely, if space was available, the system would assign the student to a room and generate a confirmation.
 
-#### Reflection and Peer Assessment
+The presentation of our project highlighted the lease application process from both the student and admin perspectives. Demonstration data helped showcase how the system worked in real-time, allowing the evaluators to see how applications were processed, approved, or rejected based on room availability.
 
-**Individual Contributions**
+#### Challenges and Lessons Learned
 
-Throughout the project, each team member contributed to different aspects of the system's development, from coding and testing to documentation and presentation. We conducted peer evaluations to ensure equal participation and address any issues of workload distribution. The peer assessment process helped us maintain a fair allocation of tasks and encouraged collaboration.
+One of the main challenges we encountered was designing a backend that could efficiently handle lease requests and room assignments while maintaining data integrity. To solve this, we focused on refining our ERD, ensuring that the relationships between entities were clear and that each application could be linked correctly to a property and a bill payer.
 
-**Challenges and Lessons Learned**
-
-One of the main challenges was managing the project's scope within the limited timeframe. We learned the importance of prioritizing core functionalities and implementing additional features only if time allowed. Effective communication and regular progress reviews were crucial in overcoming obstacles and ensuring a successful outcome.
+Additionally, building a seamless interface with React-admin required careful planning to ensure that admins could manage tasks like approving leases and assigning rooms without technical difficulties. We learned the importance of breaking down complex tasks into manageable components, ensuring that each feature was well-tested before integration.
 
 #### Conclusion
 
-The SI/ISM 354 group project provided a valuable learning experience in designing and developing an information system. By applying Agile methodology, utilizing modern technologies, and focusing on core functionalities, our team successfully created a functional prototype for StelStay Properties. This project not only enhanced our technical skills but also demonstrated the importance of teamwork, documentation, and effective presentation in software development.
+This project provided an in-depth experience in designing and implementing an information system for managing student accommodation. By using well-structured diagrams, including the ERD and the activity diagram, we were able to create a clear blueprint for the system. Our final prototype successfully handled the core functionalities of lease applications, room assignments, and administrative management, meeting the project’s requirements and providing a functional solution for StelStay Properties.
